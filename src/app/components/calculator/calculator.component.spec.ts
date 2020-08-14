@@ -62,7 +62,7 @@ describe('CalculatorComponent', () => {
     component.currentNumber = '1';
     component.waitForSecondNumberInput = false;
     component.firstOperand = 22;
-    const result = component.doCalculation(OperatorEnum.reduce, 2);
+    const result = component.doCalculation(OperatorEnum.subtract, 2);
     console.log(result);
     expect(result).toBe(20);
   });

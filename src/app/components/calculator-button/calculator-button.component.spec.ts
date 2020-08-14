@@ -19,7 +19,7 @@ describe('CalculatorButtonComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create CalculatorButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 });

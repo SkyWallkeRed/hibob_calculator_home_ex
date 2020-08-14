@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export enum OperatorEnum {
   add = '+',
-  reduce = '-',
+  subtract = '-',
   devide = '/',
   multiply = '*',
   equal = '='
@@ -22,6 +22,8 @@ export class CalculatorComponent implements OnInit {
   operator: OperatorEnum = null;
   waitForSecondNumberInput = false;
 
+  showOperatorDisplay = true;
+
   constructor() {
   }
 
@@ -29,45 +31,60 @@ export class CalculatorComponent implements OnInit {
   }
 
   operatiorClick(operator: OperatorEnum): void {
+    this.showOperatorDisplay = true;
 
     if (this.firstOperand === null) {
       this.firstOperand = Number(this.currentNumber);
     } else if (this.operator) {
       const result = this.doCalculation(this.operator, Number(this.currentNumber));
+      if (this.countDecimals(Number(result)) > 5) {
+        this.showOperatorDisplay = false;
+      }
+
       this.currentNumber = String(result);
       this.firstOperand = result;
+
     }
+
     this.operator = operator;
     this.waitForSecondNumberInput = true;
+
   }
 
   decimalClick(decimal: string): void {
+
     if (this.waitForSecondNumberInput) {
       this.currentNumber = decimal;
       this.waitForSecondNumberInput = false;
     } else {
       this.currentNumber === '0' ? this.currentNumber = decimal : this.currentNumber += decimal;
     }
+
   }
 
   dotClick(): void {
+
     if (!this.currentNumber.includes('.')) {
       this.currentNumber += '.';
     }
+
   }
 
   clearAll(): void {
+
     this.currentNumber = '0';
     this.firstOperand = null;
     this.operator = null;
     this.waitForSecondNumberInput = false;
+
   }
 
   doCalculation(operator: OperatorEnum, secondInput: number): number {
+
     switch (operator) {
       case OperatorEnum.add:
         return this.firstOperand += secondInput;
-      case OperatorEnum.reduce:
+      case OperatorEnum.subtract:
         return this.firstOperand -= secondInput;
       case OperatorEnum.multiply:
         return this.firstOperand *= secondInput;
@@ -76,5 +93,15 @@ export class CalculatorComponent implements OnInit {
       case OperatorEnum.equal:
         return secondInput;
     }
+
   }
+
+  countDecimals(value): number {
+
+    if (Math.floor(value) === value) {
+      return 0;
+    }
+    return value.toString().split('.')[1].length || 0;
+  }
+
 }

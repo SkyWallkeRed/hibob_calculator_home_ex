@@ -2,7 +2,7 @@
 
   <label>
     <input type="text" class="calculator-screen" [value]="currentNumber" disabled/>
-    <span class="current-operator">{{operator}}</span>
+    <span *ngIf="showOperatorDisplay" class="current-operator">{{operator}}</span>
   </label>
 
   <div class="calculator-keys">
