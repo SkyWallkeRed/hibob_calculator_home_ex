@@ -1,7 +1,24 @@
-# HibobCalcHomeEx
+# HiBob Calculator Home Ex
+
+####As we talked please build a calculator web app using the following:
+* Angular
+* SOLID coding 
+* Object-oriented ( interface, class and etc )
+* Testing ( just to understand the principle )
+* SASS
+* the Calculator should support the 4 standard arithmetic actions:
+* Plus
+* Minus
+* Multiplay
+* Divide 
+* the assignment should be delivered as a stackblitz app or in a github repository.
+ 
+of course, make it look good
+please reply with how much time you need for it or if you have any questions
+
+Good luck
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.6.
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

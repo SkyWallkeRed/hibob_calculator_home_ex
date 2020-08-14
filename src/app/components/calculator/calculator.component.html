@@ -1,35 +1,40 @@
 <div [ngClass]="{'center-calc': centerXY}" [ngStyle]="{'width': maxWidth}" class="calculator">
 
-  <input type="text" class="calculator-screen" value="0" disabled/>
+  <label>
+    <input type="text" class="calculator-screen" [value]="currentNumber" disabled/>
+    <span class="current-operator">{{operator}}</span>
+  </label>
 
   <div class="calculator-keys">
 
-    <button type="button" class="operator" value="+">+</button>
-    <app-calculator-button></app-calculator-button>
-    <button type="button" class="operator" value="-">-</button>
-    <button type="button" class="operator" value="*">&times;</button>
-    <button type="button" class="operator" value="/">&divide;</button>
+    <app-calculator-button (output)="operatiorClick($event)" classList="calc-button operator"
+                           logicVal="+"></app-calculator-button>
+    <app-calculator-button (output)="operatiorClick($event)" classList="calc-button operator"
+                           logicVal="-"></app-calculator-button>
+    <app-calculator-button (output)="operatiorClick($event)" classList="calc-button operator" logicVal="*"
+                           displayVal="&times;"></app-calculator-button>
+    <app-calculator-button (output)="operatiorClick($event)" classList="calc-button operator" logicVal="/"
+                           displayVal="&divide;"></app-calculator-button>
 
-    <button type="button" value="7">7</button>
-    <button type="button" value="8">8</button>
-    <button type="button" value="9">9</button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="7"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="8"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="9"></app-calculator-button>
 
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="4"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="5"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="6"></app-calculator-button>
 
-    <button type="button" value="4">4</button>
-    <button type="button" value="5">5</button>
-    <button type="button" value="6">6</button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="1"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="2"></app-calculator-button>
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="3"></app-calculator-button>
 
+    <app-calculator-button (output)="decimalClick($event)" classList="calc-button" logicVal="0"></app-calculator-button>
+    <app-calculator-button (output)="dotClick()" classList="calc-button decimal" logicVal="."></app-calculator-button>
+    <app-calculator-button (output)="clearAll()" classList="calc-button all-clear" logicVal="all-clear"
+                           displayVal="AC"></app-calculator-button>
 
-    <button type="button" value="1">1</button>
-    <button type="button" value="2">2</button>
-    <button type="button" value="3">3</button>
-
-
-    <button type="button" value="0">0</button>
-    <button type="button" class="decimal" value=".">.</button>
-    <button type="button" class="all-clear" value="all-clear">AC</button>
-
-    <button type="button" class="equal-sign" value="=">=</button>
+    <app-calculator-button class="equal-sign-grid-wrapper" (output)="operatiorClick($event)"
+                           classList="calc-button equal-sign" logicVal="="></app-calculator-button>
 
   </div>
 </div>
