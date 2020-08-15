@@ -12,11 +12,12 @@ export enum OperatorEnum {
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.sass']
+  styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent {
   @Input() maxWidth?: string;
   @Input() centerXY?: boolean;
+  @Input() calculatorNumPadArray?: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
   @Output() output: ReplaySubject<string> = new ReplaySubject<string>(1);
 
@@ -27,9 +28,6 @@ export class CalculatorComponent implements OnInit {
   showOperatorOnScreen = true;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   operatiorClick(operator: OperatorEnum): void {
@@ -65,7 +63,7 @@ export class CalculatorComponent implements OnInit {
 
     } else {
 
-      this.currentOperand === '0' ? this.currentOperand = decimal : this.currentOperand += decimal;
+      this.currentOperand = this.currentOperand === '0' ? decimal : this.currentOperand + decimal;
 
     }
 

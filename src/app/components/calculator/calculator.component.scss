@@ -1,0 +1,74 @@
+:host {
+  .center-calc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .calculator {
+    .calculator-screen {
+      width: 100%;
+      font-size: 4rem;
+      height: 9rem;
+      border: none;
+      background-color: rgba(136, 136, 136, 0.4);
+      border-radius: 10px;
+      box-shadow: -6px -6px 10px #ffffff, -6px -10px 15px #ffffff, -20px 0px 30px #ffffff, 6px 20px 25px rgba(0, 0, 0, 0.2);
+      color: white;
+      text-align: right;
+      padding-right: 20px;
+      padding-left: 10px;
+    }
+
+    .current-operator {
+      position: absolute;
+      left: 20px;
+      top: 3rem;
+      z-index: 2;
+      color: #ff8600;
+      font-size: 50px;
+    }
+
+    .current-operator-back {
+      position: absolute;
+      left: 20px;
+      z-index: -1;
+      color: #ff8600;
+      font-size: 50px;
+    }
+
+
+    ::ng-deep.calc-button:focus {
+      outline: 0;
+    }
+
+
+    ::ng-deep.operator {
+      color: #ff8600;
+    }
+
+
+    ::ng-deep.all-clear {
+      color: #fe6d73
+    }
+
+    ::ng-deep.equal-sign {
+      color: #ff8600;
+      height: 100%;
+    }
+
+    ::ng-deep.equal-sign-grid-wrapper {
+      grid-area: 2 / 4 / 6 / 5
+    }
+
+    ::ng-deep.calculator-keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+      padding-top: 20px;
+    }
+  }
+
+
+}

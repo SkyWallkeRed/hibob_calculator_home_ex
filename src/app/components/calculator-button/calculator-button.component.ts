@@ -4,9 +4,9 @@ import { OperatorEnum } from '../calculator/calculator.component';
 @Component({
   selector: 'app-calculator-button',
   templateUrl: './calculator-button.component.html',
-  styleUrls: ['./calculator-button.component.sass']
+  styleUrls: ['./calculator-button.component.scss']
 })
-export class CalculatorButtonComponent implements OnInit {
+export class CalculatorButtonComponent{
   @Input() logicVal: string;
 
   @Input() displayVal?: string;
@@ -15,9 +15,6 @@ export class CalculatorButtonComponent implements OnInit {
   @Output() output: EventEmitter<string | OperatorEnum> = new EventEmitter<string | OperatorEnum>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
 }
