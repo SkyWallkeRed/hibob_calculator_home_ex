@@ -18,7 +18,7 @@ export class CalculatorComponent implements OnInit {
   @Input() maxWidth?: string;
   @Input() centerXY?: boolean;
 
-  @Output() output: ReplaySubject<string> = new ReplaySubject<string>();
+  @Output() output: ReplaySubject<string> = new ReplaySubject<string>(1);
 
   currentOperand = '0';
   firstOperand = '0';
@@ -33,15 +33,19 @@ export class CalculatorComponent implements OnInit {
 
   operatiorClick(operator: OperatorEnum): void {
 
-    if (this.firstOperand === null) {
-      this.firstOperand = this.currentOperand;
-    } else if (this.operator && !this.waitForSecondNumberInput) {
-      const result = this.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
+    if (this.operator && !this.waitForSecondNumberInput) {
+      let result = this.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
+
+      if (!result) {
+        result = Number(this.firstOperand);
+      }
+
       this.assignCurrentOperend(result);
     }
 
     this.operator = operator;
     this.waitForSecondNumberInput = true;
+
   }
 
   decimalClick(decimal: string): void {
@@ -53,22 +57,28 @@ export class CalculatorComponent implements OnInit {
     } else {
       this.currentOperand === '0' ? this.currentOperand = decimal : this.currentOperand += decimal;
     }
+
   }
 
   dotClick(): void {
+
     if (!this.currentOperand.includes('.')) {
       this.currentOperand += '.';
     }
+
   }
 
   clearAll(): void {
+
     this.currentOperand = '0';
     this.firstOperand = '0';
     this.operator = null;
     this.waitForSecondNumberInput = false;
+
   }
 
   doCalculation(firstInput: number, operator: OperatorEnum, secondInput: number): number {
+
     switch (operator) {
       case OperatorEnum.add:
         return firstInput + secondInput;

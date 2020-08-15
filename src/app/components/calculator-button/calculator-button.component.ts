@@ -7,8 +7,9 @@ import { OperatorEnum } from '../calculator/calculator.component';
   styleUrls: ['./calculator-button.component.sass']
 })
 export class CalculatorButtonComponent implements OnInit {
-  @Input() displayVal?: string;
   @Input() logicVal: string;
+
+  @Input() displayVal?: string;
   @Input() classList?: string;
 
   @Output() output: EventEmitter<string | OperatorEnum> = new EventEmitter<string | OperatorEnum>();
