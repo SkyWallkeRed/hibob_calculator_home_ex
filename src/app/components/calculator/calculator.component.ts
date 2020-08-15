@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 export enum OperatorEnum {
@@ -24,6 +24,7 @@ export class CalculatorComponent implements OnInit {
   firstOperand = '0';
   operator: OperatorEnum = null;
   waitForSecondNumberInput = false;
+  showOperatorOnScreen = true;
 
   constructor() {
   }
@@ -34,10 +35,16 @@ export class CalculatorComponent implements OnInit {
   operatiorClick(operator: OperatorEnum): void {
 
     if (this.operator && !this.waitForSecondNumberInput) {
+
+      this.showOperatorOnScreen = true;
       let result = this.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
 
       if (!result) {
         result = Number(this.firstOperand);
+      }
+
+      if (this.countDecimals(result) > 5) {
+        this.showOperatorOnScreen = false;
       }
 
       this.assignCurrentOperend(result);
@@ -51,11 +58,15 @@ export class CalculatorComponent implements OnInit {
   decimalClick(decimal: string): void {
 
     if (this.waitForSecondNumberInput) {
+
       this.firstOperand = this.currentOperand;
       this.currentOperand = decimal;
       this.waitForSecondNumberInput = false;
+
     } else {
+
       this.currentOperand === '0' ? this.currentOperand = decimal : this.currentOperand += decimal;
+
     }
 
   }
@@ -74,7 +85,7 @@ export class CalculatorComponent implements OnInit {
     this.firstOperand = '0';
     this.operator = null;
     this.waitForSecondNumberInput = false;
-
+    this.showOperatorOnScreen = true;
   }
 
   doCalculation(firstInput: number, operator: OperatorEnum, secondInput: number): number {
@@ -96,6 +107,13 @@ export class CalculatorComponent implements OnInit {
   assignCurrentOperend(val: number): void {
     this.currentOperand = String(val);
     this.output.next(this.currentOperand);
+  }
+
+  countDecimals(val: number): number {
+    if (Math.floor(val.valueOf()) === val.valueOf()) {
+      return 0;
+    }
+    return val.toString().split('.')[1].length || 0;
   }
 
 }
