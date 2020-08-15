@@ -1,8 +1,8 @@
 <div [ngClass]="{'center-calc': centerXY}" [ngStyle]="{'width': maxWidth}" class="calculator">
 
   <label>
-    <input type="text" class="calculator-screen" [value]="currentNumber" disabled/>
-    <span *ngIf="showOperatorDisplay" class="current-operator">{{operator}}</span>
+    <input type="text" class="calculator-screen" [value]="currentOperand" disabled/>
+    <span class="current-operator">{{operator}}</span>
   </label>
 
   <div class="calculator-keys">

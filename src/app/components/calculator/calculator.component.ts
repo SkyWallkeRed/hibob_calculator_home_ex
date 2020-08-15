@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
 export enum OperatorEnum {
   add = '+',
@@ -17,12 +18,12 @@ export class CalculatorComponent implements OnInit {
   @Input() maxWidth?: string;
   @Input() centerXY?: boolean;
 
-  currentNumber = '0';
-  firstOperand = null;
+  @Output() output: ReplaySubject<string> = new ReplaySubject<string>();
+
+  currentOperand = '0';
+  firstOperand = '0';
   operator: OperatorEnum = null;
   waitForSecondNumberInput = false;
-
-  showOperatorDisplay = true;
 
   constructor() {
   }
@@ -31,77 +32,60 @@ export class CalculatorComponent implements OnInit {
   }
 
   operatiorClick(operator: OperatorEnum): void {
-    this.showOperatorDisplay = true;
 
     if (this.firstOperand === null) {
-      this.firstOperand = Number(this.currentNumber);
-    } else if (this.operator) {
-      const result = this.doCalculation(this.operator, Number(this.currentNumber));
-      if (this.countDecimals(Number(result)) > 5) {
-        this.showOperatorDisplay = false;
-      }
-
-      this.currentNumber = String(result);
-      this.firstOperand = result;
-
+      this.firstOperand = this.currentOperand;
+    } else if (this.operator && !this.waitForSecondNumberInput) {
+      const result = this.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
+      this.assignCurrentOperend(result);
     }
 
     this.operator = operator;
     this.waitForSecondNumberInput = true;
-
   }
 
   decimalClick(decimal: string): void {
 
     if (this.waitForSecondNumberInput) {
-      this.currentNumber = decimal;
+      this.firstOperand = this.currentOperand;
+      this.currentOperand = decimal;
       this.waitForSecondNumberInput = false;
     } else {
-      this.currentNumber === '0' ? this.currentNumber = decimal : this.currentNumber += decimal;
+      this.currentOperand === '0' ? this.currentOperand = decimal : this.currentOperand += decimal;
     }
-
   }
 
   dotClick(): void {
-
-    if (!this.currentNumber.includes('.')) {
-      this.currentNumber += '.';
+    if (!this.currentOperand.includes('.')) {
+      this.currentOperand += '.';
     }
-
   }
 
   clearAll(): void {
-
-    this.currentNumber = '0';
-    this.firstOperand = null;
+    this.currentOperand = '0';
+    this.firstOperand = '0';
     this.operator = null;
     this.waitForSecondNumberInput = false;
-
   }
 
-  doCalculation(operator: OperatorEnum, secondInput: number): number {
-
+  doCalculation(firstInput: number, operator: OperatorEnum, secondInput: number): number {
     switch (operator) {
       case OperatorEnum.add:
-        return this.firstOperand += secondInput;
-      case OperatorEnum.subtract:
-        return this.firstOperand -= secondInput;
-      case OperatorEnum.multiply:
-        return this.firstOperand *= secondInput;
+        return firstInput + secondInput;
       case OperatorEnum.devide:
-        return this.firstOperand /= secondInput;
+        return firstInput / secondInput;
+      case OperatorEnum.multiply:
+        return firstInput * secondInput;
+      case OperatorEnum.subtract:
+        return firstInput - secondInput;
       case OperatorEnum.equal:
-        return secondInput;
+        break;
     }
-
   }
 
-  countDecimals(value): number {
-
-    if (Math.floor(value) === value) {
-      return 0;
-    }
-    return value.toString().split('.')[1].length || 0;
+  assignCurrentOperend(val: number): void {
+    this.currentOperand = String(val);
+    this.output.next(this.currentOperand);
   }
 
 }

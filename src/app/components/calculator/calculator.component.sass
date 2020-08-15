@@ -1,75 +1,60 @@
-.calculator
-  border: 1px solid #ccc
-  border-radius: 5px
-
 .center-calc
   position: absolute
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
 
-.calculator-screen
-  width: 100%
-  font-size: 5rem
-  height: 100%
-  border: none
-  background-color: #252525
-  color: #fff
-  text-align: right
-  padding-right: 20px
-  padding-left: 10px
+.calculator
 
-.current-operator
-  position: absolute
-  left: 20px
-  top: 20px
-  z-index: 2
-  color: white
-  font-size: 50px
 
-::ng-deep.calc-button:focus
-  outline: 0
+  .calculator-screen
+    width: 100%
+    font-size: 4rem
+    height: 9rem
+    border: none
+    background-color: rgba(136, 136, 136, 0.4)
+    border-radius: 10px
+    box-shadow: -6px -6px 10px #ffffff, -6px -10px 15px #ffffff, -20px 0px 30px #ffffff, 6px 20px 25px rgba(0, 0, 0, 0.2)
+    color: white
+    text-align: right
+    padding-right: 20px
+    padding-left: 10px
 
-::ng-deep.calc-button
-  width: 100%
-  border-radius: 3px
-  border: 1px solid #c4c4c4
-  background-color: transparent
-  font-size: 2rem
-  color: #333
-  background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, .04))
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05), inset 0 1px 0 0 rgba(255, 255, 255, .45), inset 0 - 1 px 0 0 rgba(255, 255, 255, .15), 0 1px 0 0 rgba(255, 255, 255, .15)
-  text-shadow: 0 1px rgba(255, 255, 255, .4)
+  .current-operator
+    position: absolute
+    left: 20px
+    top: 3rem
+    z-index: 2
+    color: white
+    font-size: 50px
 
-::ng-deep.calc-button:hover
-  background-color: #eaeaea
+  ::ng-deep.calc-button:focus
+    outline: 0
 
-::ng-deep.operator
-  color: #337cac
+  ::ng-deep.calc-button
+    width: 100%
+    height: 70px
+    background-color: transparent
+    font-size: 2rem
+    color: #227c9d
+    text-shadow: 0 1px rgba(255, 255, 255, .4)
 
-::ng-deep.all-clear
-  background-color: #f0595f
-  border-color: #b0353a
-  color: #fff
+  ::ng-deep.operator
+    color: #ff8600
 
-::ng-deep.all-clear:hover
-  background-color: #f17377
+  ::ng-deep.all-clear
+    color: #fe6d73
 
-::ng-deep.equal-sign
-  background-color: #2e86c0
-  border-color: #337cac
-  color: #fff
-  height: 100%
+  ::ng-deep.equal-sign
+    color: #ff8600
+    height: 100%
 
-::ng-deep.equal-sign-grid-wrapper
-  grid-area: 2 / 4 / 6 / 5
+  ::ng-deep.equal-sign-grid-wrapper
+    grid-area: 2 / 4 / 6 / 5
 
-::ng-deep.equal-sign:hover
-  background-color: #4e9ed4
-
-::ng-deep.calculator-keys
-  display: grid
-  grid-template-columns: repeat(4, 1fr)
-  grid-gap: 20px
-  padding: 20px
+  ::ng-deep.calculator-keys
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-gap: 20px
+    padding-top: 20px
 

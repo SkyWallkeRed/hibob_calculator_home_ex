@@ -29,65 +29,49 @@ describe('CalculatorComponent', () => {
     expect(btn).toBeTruthy();
   });
 
-  it(`shuld test calc func add(+) operator`, () => {
-    component.currentNumber = '1';
-    component.waitForSecondNumberInput = false;
-    component.firstOperand = 1;
-    const result = component.doCalculation(OperatorEnum.add, 2);
-    console.log(result);
+  it(`shuld add with calc func add(+) operator`, () => {
+    const result = component.doCalculation(1, OperatorEnum.add, 2);
     expect(result).toBe(3);
   });
 
-  it(`shuld test calc func devide(/) operator`, () => {
-
-    component.currentNumber = '1';
-    component.waitForSecondNumberInput = false;
-    component.firstOperand = 22;
-    const result = component.doCalculation(OperatorEnum.devide, 2);
-    console.log(result);
+  it(`shuld add with calc func devide(/) operator`, () => {
+    const result = component.doCalculation(22, OperatorEnum.devide, 2);
     expect(result).toBe(11);
   });
 
-  it(`shuld test calc func multiply(*) operator`, () => {
-
-    component.currentNumber = '1';
-    component.waitForSecondNumberInput = false;
-    component.firstOperand = 22;
-    const result = component.doCalculation(OperatorEnum.multiply, 3);
-    console.log(result);
+  it(`shuld add with calc func multiply(*) operator`, () => {
+    const result = component.doCalculation(22, OperatorEnum.multiply, 3);
     expect(result).toBe(66);
   });
 
-  it(`shuld test calc func subtract(-) operator`, () => {
-    component.currentNumber = '1';
-    component.waitForSecondNumberInput = false;
-    component.firstOperand = 22;
-    const result = component.doCalculation(OperatorEnum.subtract, 2);
-    console.log(result);
+  it(`shuld add with calc func subtract(-) operator`, () => {
+    const result = component.doCalculation(22, OperatorEnum.subtract, 2);
     expect(result).toBe(20);
   });
 
-  it(`shuld test clear all func AC`, () => {
-    component.currentNumber = '1';
-    component.waitForSecondNumberInput = false;
-    component.firstOperand = 22;
+  it(`shuld add with calc func subtract(-) operator negative result`, () => {
+    const result = component.doCalculation(2, OperatorEnum.subtract, 22);
+    expect(result).toBe(-20);
+  });
+
+  it(`shuld reset calculator uning AC func`, () => {
     component.decimalClick('5');
     component.operatiorClick(OperatorEnum.multiply);
     component.decimalClick('3');
     component.operatiorClick(OperatorEnum.equal);
     component.clearAll();
     expect(
-      component.currentNumber === '0' &&
-      component.firstOperand === null &&
+      component.currentOperand === '0' &&
+      component.firstOperand === '0' &&
       component.operator === null &&
       component.waitForSecondNumberInput === false).toBeTrue();
   });
 
-  it(`shuld test calculation flow`, () => {
+  it(`shuld test calculator flow`, () => {
     component.decimalClick('100');
     component.operatiorClick(OperatorEnum.add);
     component.decimalClick('40');
     component.operatiorClick(OperatorEnum.equal);
-    expect(component.currentNumber).toBe('140');
+    expect(component.currentOperand).toBe('140');
   });
 });
