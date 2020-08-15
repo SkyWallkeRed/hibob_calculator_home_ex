@@ -1,5 +1,7 @@
 # HiBob Calculator Home Ex
 
+![Calculator img](https://github.com/SkyWallkeRed/hibob_calculator_home_ex/blob/master/calculator_result.png)
+
 ####As we talked please build a calculator web app using the following:
 * Angular
 * SOLID coding 
