@@ -1,3 +1,4 @@
+@import "color-scheme";
 :host {
   .center-calc {
     position: absolute;
@@ -12,9 +13,9 @@
       font-size: 4rem;
       height: 9rem;
       border: none;
-      background-color: rgba(136, 136, 136, 0.4);
+      background-color: $screen_bg_color;
       border-radius: 10px;
-      box-shadow: -6px -6px 10px #ffffff, -6px -10px 15px #ffffff, -20px 0px 30px #ffffff, 6px 20px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: -6px -6px 10px $light_shadow_color, -6px -10px 15px $light_shadow_color, -20px 0px 30px $light_shadow_color, 6px 20px 25px $dark_shadow_color;
       color: white;
       text-align: right;
       padding-right: 20px;
@@ -26,7 +27,7 @@
       left: 20px;
       top: 3rem;
       z-index: 2;
-      color: #ff8600;
+      color: $operator_color;
       font-size: 50px;
     }
 
@@ -34,27 +35,28 @@
       position: absolute;
       left: 20px;
       z-index: -1;
-      color: #ff8600;
+      color: $operator_color;
       font-size: 50px;
     }
 
 
     ::ng-deep.calc-button:focus {
       outline: 0;
+      color: $btn_color;
     }
 
 
     ::ng-deep.operator {
-      color: #ff8600;
+      color: $operator_color;
     }
 
 
     ::ng-deep.all-clear {
-      color: #fe6d73
+      color: $clear_all_color;
     }
 
     ::ng-deep.equal-sign {
-      color: #ff8600;
+      color: $operator_color;
       height: 100%;
     }
 
