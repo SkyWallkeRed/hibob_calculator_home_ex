@@ -1,13 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
+import { CalculatorService, OperatorEnum } from './calculator.service';
 
-export enum OperatorEnum {
-  add = '+',
-  subtract = '-',
-  devide = '/',
-  multiply = '*',
-  equal = '='
-}
 
 @Component({
   selector: 'app-calculator',
@@ -19,7 +13,7 @@ export class CalculatorComponent {
   @Input() centerXY?: boolean;
   @Input() calculatorNumPadArray?: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
-  @Output() output: ReplaySubject<string> = new ReplaySubject<string>(1);
+  @Output() output: Subject<string> = new Subject<string>();
 
   currentOperand = '0';
   firstOperand = '0';
@@ -27,7 +21,7 @@ export class CalculatorComponent {
   waitForSecondNumberInput = false;
   showOperatorOnScreen = true;
 
-  constructor() {
+  constructor(private calculatorService: CalculatorService) {
   }
 
   operatiorClick(operator: OperatorEnum): void {
@@ -35,13 +29,13 @@ export class CalculatorComponent {
     if (this.operator && !this.waitForSecondNumberInput) {
 
       this.showOperatorOnScreen = true;
-      let result = this.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
+      let result = this.calculatorService.doCalculation(Number(this.firstOperand), this.operator, Number(this.currentOperand));
 
-      if (!result) {
+      if (!result && result !== 0) {
         result = Number(this.firstOperand);
       }
 
-      if (this.countDecimals(result) > 5) {
+      if (this.calculatorService.countDecimals(result) > 5) {
         this.showOperatorOnScreen = false;
       }
 
@@ -54,6 +48,12 @@ export class CalculatorComponent {
   }
 
   decimalClick(decimal: string): void {
+    console.log(decimal.length);
+    if (decimal.length > 10) {
+      this.showOperatorOnScreen = false;
+    } else {
+      this.showOperatorOnScreen = true;
+    }
 
     if (this.waitForSecondNumberInput) {
 
@@ -84,34 +84,12 @@ export class CalculatorComponent {
     this.operator = null;
     this.waitForSecondNumberInput = false;
     this.showOperatorOnScreen = true;
-  }
 
-  doCalculation(firstInput: number, operator: OperatorEnum, secondInput: number): number {
-
-    switch (operator) {
-      case OperatorEnum.add:
-        return firstInput + secondInput;
-      case OperatorEnum.devide:
-        return firstInput / secondInput;
-      case OperatorEnum.multiply:
-        return firstInput * secondInput;
-      case OperatorEnum.subtract:
-        return firstInput - secondInput;
-      case OperatorEnum.equal:
-        break;
-    }
   }
 
   assignCurrentOperend(val: number): void {
     this.currentOperand = String(val);
     this.output.next(this.currentOperand);
-  }
-
-  countDecimals(val: number): number {
-    if (Math.floor(val.valueOf()) === val.valueOf()) {
-      return 0;
-    }
-    return val.toString().split('.')[1].length || 0;
   }
 
 }

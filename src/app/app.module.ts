@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalculatorButtonComponent } from './components/calculator-button/calculator-button.component';
 import { CalculatorComponent } from './components/calculator/calculator.component';
+import { CalculatorService } from './components/calculator/calculator.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CalculatorComponent } from './components/calculator/calculator.componen
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CalculatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

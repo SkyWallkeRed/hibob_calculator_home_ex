@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OperatorEnum } from '../calculator/calculator.component';
+import { OperatorEnum } from '../calculator/calculator.service';
+
 
 @Component({
   selector: 'app-calculator-button',
